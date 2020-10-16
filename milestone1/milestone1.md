@@ -67,4 +67,7 @@ Step 3: Clone our github Repository https://github.com/BDelhees/mendicantbias to
 Step 4: Install matplotlib, pandas, numpy, scikitlearn, TensorFlow, keras (possible that it is already included in TensorFlow) \
 Step 5: To run the code in the terminal: python3 bitcoin.py \
 
-Further problems were that the ubuntu virutalbox crashed several times and rerunning the backed up version let to further crashes. Everytime we wanted to rerun the code via the terminal, we had to clone our Repository from Github, reinstall git and pip and all necessary packages. Also, we were not able to install TensorFlow on the virtualbox. TensorFlow is a large file and even by partioning a larger space of the harddisk to the virtualbox, it was unable to install TensorFlow fully.
+Further problems were that the ubuntu virutalbox crashed several times and rerunning the backed up version let to further crashes. Everytime we wanted to rerun the code via the terminal, we had to clone our Repository from Github, reinstall git and pip and all necessary packages. Also, we were not able to install TensorFlow on the virtualbox. TensorFlow is a large file and even by partioning a larger space of the harddisk to the virtualbox, it was unable to install TensorFlow fully. \
+
+9.) \
+We merged the dataset unlitarerally without a pull request from the Github Repository. We worked together in person side by side so it was unnecessary to make a pull request.
