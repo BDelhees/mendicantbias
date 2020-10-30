@@ -15,10 +15,10 @@ The data are time series data (discrete). The Project uses the data to determine
 2)\
 The author used Python version 3.0 for programming. Used packages are numpy, pandas and from matplotlib pyplot (to visualize). Furthermore Keras was used (keras.model->Sequential, keras.layers->Dense, keras.layers LSTM). Further, the TensorFlow Machine Learning library was utilized.
 
-3) \
+3)\
 A new branch was created (thanu_worked_on) . On this branch the Python file as well as the data set were added and committed. Previously the whole repo was cloned from the task and the unneeded files (here README.md) were deleted. Problems arose during the login of the global user. This problem could be solved with google.
 
-4) \
+4)\
 To execute the code, pip must be installed first. With the help of pip we can then install the packages needed to execute the code in the ubuntu terminal. This must be done before the code is executed. We worked with Python 3.8.5 (default) .
 
 One problem was that the file could not be read directly from the console (python3 ./bicoin.py) . it shows that the sample is 0. If you copy all code from the bitcoin.py file and paste it into the console, the code will work.
@@ -60,14 +60,14 @@ Summary:\
 The input for the RNN is the training as well as the test data set which were split after the csv-file was imported which contains the bitcoin prices at a given time. The dataset was imported via pandas.
 Keras is a neural network library whereas tensorflow is an open-source library containing numerous different machine learning packages not just neural networks. Keras runs on top of tensorflow which is thus required for effectively utilizing keras.
 
-6.) \
+6) \
 Step 1: Update Python to 3.8.5 (default version of Ubuntu 20.04)\
 Step 2: Install pip in the terminal with sudo apt install pip \
 Step 3: Clone our github Repository https://github.com/BDelhees/mendicantbias to get access to the code (bitcoin.py) and the dataset (bitcoin.csv) \
 Step 4: Install matplotlib, pandas, numpy, scikitlearn, TensorFlow, keras (possible that it is already included in TensorFlow) \
-Step 5: To run the code in the terminal: python3 bitcoin.py \
+Step 5: To run the code in the terminal: python3 bitcoin.py
 
-Further problems were that the ubuntu virutalbox crashed several times and rerunning the backed up version let to further crashes. Everytime we wanted to rerun the code via the terminal, we had to clone our Repository from Github, reinstall git and pip and all necessary packages. Also, we were not able to install TensorFlow on the virtualbox. TensorFlow is a large file and even by partioning a larger space of the harddisk to the virtualbox, it was unable to install TensorFlow fully. \
+Further problems were that the ubuntu virutalbox crashed several times and rerunning the backed up version let to further crashes. Everytime we wanted to rerun the code via the terminal, we had to clone our Repository from Github, reinstall git and pip and all necessary packages. Also, we were not able to install TensorFlow on the virtualbox. TensorFlow is a large file and even by partioning a larger space of the harddisk to the virtualbox, it was unable to install TensorFlow fully.
 
-9.) \
+9) \
 We merged the dataset unlitarerally without a pull request from the Github Repository. We worked together in person side by side so it was unnecessary to make a pull request.
