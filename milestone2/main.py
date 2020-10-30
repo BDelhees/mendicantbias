@@ -4,6 +4,6 @@ import process_data
 
 import Rnn_layer_fitting
 
-import making_prediction
+import prediction
 
 import visualization_results
