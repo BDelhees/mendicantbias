@@ -10,6 +10,7 @@ from keras.layers import LSTM
 # Import the dataset and encode the date
 df = pd.read_csv('bitcoin.csv')
 df['date'] = pd.to_datetime(df['Timestamp'],unit='s').dt.date
+df['date'] = df['date'].astype('datetime64[ns]')
 group = df.groupby('date')
 Real_Price = group['Weighted_Price'].mean()
 # split data
