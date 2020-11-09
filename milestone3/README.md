@@ -7,7 +7,36 @@
 
 #### 2.
 
+official Docker Hub Postgres Website: https://hub.docker.com/_/postgres
 
+https://docs.cloudera.com/HDPDocuments/DAS/DAS-1.4.4/installation/content/das_configure_postgres_ubuntu.html
+
+https://jfrog.com/knowledge-base/a-beginners-guide-to-understanding-and-building-docker-images/#:~:text=A%20Docker%20image%20is%20a,publicly%20with%20other%20Docker%20users
+
+
+First we have to install the Docker engine on our Virtualbox.
+When trying to install docker engine via https://docs.docker.com/engine/install/ubuntu/, while trying to remove old docker affiliated files, I got the following error message:
+
+"Reading packages lists... Error! Write error- write (28: No space left on device)"
+
+I then ran the following command to see if my space is full:
+
+```sh
+dh -h
+```
+And indeed, it turns out that the several filesystems (all /dev/loop and /cow) are at 100% capacity.
+
+```sh
+sudo snap install docker
+```
+```sh
+docker pull postgres
+```
+encountered the following message:
+
+"error: cannot communicate with server: timeout exceeded while waiting for response"
+
+After that, the virtualbox crashed.
 #### 3.
 
 To find what datatypes of each object in bitcoin.csv we run (pandas is required):
