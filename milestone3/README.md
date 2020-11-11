@@ -4,17 +4,174 @@
 
 #### 1.
 
+We followed the given steps from the docker compose website. First, we had to install the Docker Engine and Docker compose. We did the following steps:
+
+1. Setup
+ - Create directory for the project
+ - Create a file called app.py in the project directory:
+ ```sh
+import time
+
+import redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr('hits')
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+@app.route('/')
+def hello():
+    count = get_hit_count()
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+
+```   
+ - Create a file called requirements.txt:
+
+```sh
+flask
+redis
+``` 
+
+2. Create Dockerfile
+  - In the project directory, create a file named Dockerfile:
+```sh  
+FROM python: 3.7-alpine 
+
+WORKDIR /code
+
+ENV FLASK_APP= app.py
+
+ENV FLASK_RUN_HOST=0.0.0.0
+
+RUN apk add --no-cache gcc musl-dev linux-headers
+
+Copy requirements.txt requirements.txt 
+
+RUN pip install -r requirements.txt 
+
+EXPOSE 5000
+
+COPY . . 
+
+CMD ["flask", "run"]
+``` 
+3. Define services in a Compose file
+  - Create a file called docker-compose.yml in the project directory:
+```sh
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+``` 
+
+4. Build and run your app with compose
+  - From your project directory, start up your application by running docker-compose up.
+  - Enter http://localhost:5000/ in the browser to see if the application is up and running.
+
+
+Encoutnered Problems:
+
+We did not encounter any problems until the last step. When we ran docker-compose up, we got the following error message:
+
+Version in the "./docker-compose.yml" is unsupported.
+
+We looked for solutions on Github. We checked whether the problem was caused by the version of the package. This was not the case. We further tried changing the version of the Dockerfile and then run the .yml file, but to no avail. 
 
 #### 2.
 
-official Docker Hub Postgres Website: https://hub.docker.com/_/postgres
+1. What is PostgreSQL?
 
-https://docs.cloudera.com/HDPDocuments/DAS/DAS-1.4.4/installation/content/das_configure_postgres_ubuntu.html
+PostgreSQL is an open source object-relational database management system (RDBMS) that uses and extends the SQL language combined with other features (store,scal). It runs on all major operating systems. It is also highly extensible. Different programming languages can be used, for example to build custom functions. It also tries to conform with the SQL standard, which gives it a wide basis for usage. The development community adheres closely to the SQL standard. However, there are a number of PostgreSQL specific functionalities.  These are pointed out in the documentation. PostgreSQL has an extensive range of third-party extensions (e.g. PostGIS, management of geodata). Basically, PostgreSQL is SQL with additional functionalities that SQL does not have.
 
-https://jfrog.com/knowledge-base/a-beginners-guide-to-understanding-and-building-docker-images/#:~:text=A%20Docker%20image%20is%20a,publicly%20with%20other%20Docker%20users
+2. Run a PostgreSQL server and find an appropriate Python package that allows communication with the database server
+
+PostgreSQL is usually available for all Unbuntu versions by default. But we had to install it, because we needed a specific version (12.4). For that we followed the steps below:
+
+  - Create the file repository configuration:
+```sh
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+```
+  - Import the repository signing key:
+```sh
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+```
+  - Update the package lists:
+```sh
+sudo apt-get update
+```
+  - Install PostgreSQL Version 12.4. If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
+```sh
+sudo apt -y install postgresql-12 postgresql-client-12 
+```
+  - Giving sudo-rights to the created user:
+```sh
+sudo su - postgres 
+```
+  - to start PostgreSQL prompt:
+```sh
+psql
+```
+
+This all worked well. We assume at this point that the installation worked well. Now we have to run a PostgreSQL using a docker image.
+
+1. Download the Docker image from the official Docker hub website https://hub.docker.com/_/postgre :
+
+```sh
+docker pull postgres
+```
+
+2. Run the Docker image with the following command:
+
+```sh
+docker run –name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -p postgres
+```
+
+3. To check, on what port the docker container runs (it was port 5432/tcp):
+
+```sh
+docker ps
+```
+
+4. Install package psycopg2:
+
+```sh
+sudo apt-get install python3-psycopg2
+```
+
+5. Connecting to PostgreSQL:
+
+```sh
+psycopg2.connect()
+```
+
+6. We need information about the Name, User, Host, Password, Port, run the following code:
+
+```sh
+docker exec -tiu postgres some postgres psql
+```
+
+In the prompt we use the command \conninfo to get all the information (without the password). The Output was:
+
+"You are connected to database “postgres” as user “postgres” via socket in “/var/run/postgresql” at port “5432”"
 
 
-First we have to install the Docker engine on our Virtualbox.
+Encountered Problems:
+
+When I tried to install the Docker engine on my Virtualbox.
 When trying to install docker engine via https://docs.docker.com/engine/install/ubuntu/, while trying to remove old docker affiliated files, I got the following error message:
 
 "Reading packages lists... Error! Write error- write (28: No space left on device)"
@@ -26,17 +183,30 @@ dh -h
 ```
 And indeed, it turns out that the several filesystems (all /dev/loop and /cow) are at 100% capacity.
 
+
+
+While trying to download the Docker image form the official Docker hub page, with:
+
 ```sh
 sudo snap install docker
 ```
+and,
+
 ```sh
 docker pull postgres
 ```
-encountered the following message:
+I encountered the following message:
 
 "error: cannot communicate with server: timeout exceeded while waiting for response"
 
 After that, the virtualbox crashed.
+
+Helpful websites for this task:
+
+https://docs.cloudera.com/HDPDocuments/DAS/DAS-1.4.4/installation/content/das_configure_postgres_ubuntu.html
+
+https://jfrog.com/knowledge-base/a-beginners-guide-to-understanding-and-building-docker-images/#:~:text=A%20Docker%20image%20is%20a,publicly%20with%20other%20Docker%20users
+
 #### 3.
 
 To find what datatypes of each object in bitcoin.csv we run (pandas is required):
