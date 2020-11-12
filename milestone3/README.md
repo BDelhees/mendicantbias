@@ -83,7 +83,7 @@ services:
   - Enter http://localhost:5000/ in the browser to see if the application is up and running.
 
 
-Encoutnered Problems:
+***Encountered Problems:***
 
 We did not encounter any problems until the last step. When we ran docker-compose up, we got the following error message:
 
@@ -169,7 +169,8 @@ In the prompt we use the command \conninfo to get all the information (without t
 "You are connected to database “postgres” as user “postgres” via socket in “/var/run/postgresql” at port “5432”"
 
 
-Encountered Problems:
+
+***Encountered Problems:***
 
 When I tried to install the Docker engine on my Virtualbox.
 When trying to install docker engine via https://docs.docker.com/engine/install/ubuntu/, while trying to remove old docker affiliated files, I got the following error message:
