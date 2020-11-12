@@ -158,7 +158,7 @@ sudo apt-get install python3-psycopg2
 psycopg2.connect()
 ```
 
-6. We need information about the Name, User, Host, Password, Port, run the following code:
+6. We need information about the Name of the database, User, Host, Password, Port, run the following code:
 
 ```sh
 docker exec -tiu postgres some postgres psql
@@ -167,6 +167,35 @@ docker exec -tiu postgres some postgres psql
 In the prompt we use the command \conninfo to get all the information (without the password). The Output was:
 
 "You are connected to database “postgres” as user “postgres” via socket in “/var/run/postgresql” at port “5432”"
+
+7. To access the "ms3_jokes" database via Python script called ***jokes_db.py***, we used the ***pyscopg2*** package we installed on step 4.
+
+8. To connect the python file and the database, we need the information (Name of the database, User, Host, Password, Port) outlined in step 6 and its command.
+
+9. To see the table, we ran:
+
+```sh
+\dt
+```
+
+10. Connecting to the PostgreSQL Database and see your table, as well as our database there, we ran:
+
+```sh
+docker pull dpage/pgadmin4
+```
+
+11. Since the pgadmin4 tool is up and running, we use our browser and go to http://127.0.0.1:5050
+
+12. We can then add a new server via the dashboard. After that, we locate to "create - server" and in the "general" tab, we identify our pgAdmin server. In the connection tab, we use our information (User, Host, Password, Port) and click save. 
+
+13. We can then check again if our jokes are still in the docker container and databse, we run:
+
+```sh
+docker run ...
+docker exec ...
+\dt
+```
+
 
 
 
@@ -207,6 +236,8 @@ Helpful websites for this task:
 https://docs.cloudera.com/HDPDocuments/DAS/DAS-1.4.4/installation/content/das_configure_postgres_ubuntu.html
 
 https://jfrog.com/knowledge-base/a-beginners-guide-to-understanding-and-building-docker-images/#:~:text=A%20Docker%20image%20is%20a,publicly%20with%20other%20Docker%20users
+
+https://www.pgadmin.org/download/pgadmin-4-python/
 
 #### 3.
 
