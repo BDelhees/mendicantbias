@@ -231,6 +231,8 @@ I encountered the following message:
 
 After that, the virtualbox crashed.
 
+
+
 Helpful websites for this task:
 
 https://docs.cloudera.com/HDPDocuments/DAS/DAS-1.4.4/installation/content/das_configure_postgres_ubuntu.html
