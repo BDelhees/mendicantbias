@@ -209,7 +209,7 @@ When trying to install docker engine via https://docs.docker.com/engine/install/
 I then ran the following command to see if my space is full:
 
 ```sh
-dh -h
+df -h
 ```
 And indeed, it turns out that the several filesystems (all /dev/loop and /cow) are at 100% capacity.
 
