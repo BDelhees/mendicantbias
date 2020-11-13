@@ -325,9 +325,9 @@ The goal is to create a Multi-Docker Application. Essentially, we need to have a
 
 Create a docker-compose.yml file which:
 
-Starts a PostgreSQL Server Docker container (version 12.4). It should use a Docker volume to persist your data, even after your Docker container was stopped and deleted.
+1. Starts a PostgreSQL Server Docker container (version 12.4). It should use a Docker volume to persist your data, even after your Docker container was stopped and deleted.
 
-1. We created a docker compose file, called ***docker-compose.yml*** with the following code, which we copied and modified as such:
+We created a docker compose file, called ***docker-compose.yml***, which keeps the data even after the docker container is deleted or stopped. To do this, we copied and modified a code as such:
 
 ```sh
 version: "3.8"
@@ -337,7 +337,7 @@ services:
   postgres_service:
    container_name: postgresql_container
    restart: always
-   image: postgres:10.5
+   image: postgres:12.4
    volumes:
      - postgres-data:/var/lib/postgresql/data
      - ./postgresql/init:/docker-entrypoint-initdb.d
@@ -351,22 +351,64 @@ volumes:
     driver: local
 ```
 
-2. First we have to install the correct docker version (12.4), we ran:
-
-```sh
-docker pull postgres:12.4
-```
-
-3. Now that we have installed the correct version, we need to start a container.
+We are unsure if that is the correct approach or if we are miles off.
 
 
+2. Executes a Python Script in another (!) Docker container, which connects to the your database (you'll have to write a Dockerfile for this). This script should do the following taks:
+
+2.1. Initialize database from previous task and add two tables "input_data" and "predictions":
+
+We failed to start the container due to the same raesons outlined in the end of Task 2&3. Further, we were not able to properly debug our Rnn-model code. The code does not execute or deliver any proper predictions. We have spent a considerable amount of time troubleshooting (also in spyder) this but we were not able to solve it. We will try again in the coming weeks, since without predictions, our future app is useless.
+
+2.2 Load your trained Neural Network (.h5) file:
+
+We were not able to create a ***.h5*** file for milestone2. Sadly, we were not able to produce one for this milestone either.
+
+2.3 Load a sample from the data set:
+
+See answer for 2.1&2
+
+2.4 Save this single sample to the database:
+
+See answer for 2.1&2
+
+2.5 Load the sample again from the database
+
+See answer for 2.1&2
+
+2.6 Call your predict function:
+
+See answer for 2.1&2
+
+2.7 Save the prediction result to the database
+
+See answer for 2.1&2
+
+
+
+3. Explain to us how you chose to structure your database and what tables do you have, what attributes do they have?
+
+Since we are working with PostgreSQL, we would adpot a SQL compliant relational database. This works well with our structured Bitcoin pricing data. However, since our dataset only consists of one table with roughly 10k rows and 7 variables, it would not make sense to partition this any further. We would link the datetime (created out of timestamp) variable as the id, any other variables would not make much sense. With the date as id, we could select specific days and split the data into training and test set accordingly. The database would not have any connections to other tables since we do not have any further data. The only possible case would be prediction data which coul potentially be saved in another table. In this case a seperate table would be created and linked to the existing datatable with the id which would lead to problems (we would have to choose how many datapoints/dates the Rnn-model would use to make price movement predictions, but then we could not just append it with a new id since they would be the same as in the training set which would convolute and interefere with the bitcoin/training set, therefore a seperate table would not make much sense unless for comparison purposes of training/test sets). The database would look as follows:
+
+| Database |  |
+| --- | --- |
+| id | Int(8) |
+| date | ISO 8601
+| Timestamp | NUMERIC(10)
+| Open | NUMERIC
+| High |  NUMERIC
+| Low | NUMERIC
+| Close |  NUMERIC
+| Volume_(BTC)  | NUMERIC
+| Volume_(Currency) | NUMERIC
+| Weighted_Price  |  NUMERIC
 
 
 
 
 ***Encountered Problems:***
 
-Same problem as Task 2 and Task 3, unable to connect to Docker and thus Post
+Same problem as Task 2 and Task 3, unable to connect to Docker. Overall, we were not able to do a lot in this task since we failed on some major points in the previous tasks.
 
 
 
@@ -376,4 +418,6 @@ https://docs.docker.com/compose/compose-file/
 
 https://linuxhint.com/run_postgresql_docker_compose/
 
-We chose to keep our structure with the fodlers intact for this milestone since it is too risky to restructure our whole github on the eve of delivering the deadline of milestone3. For the next milestone, we will restrucutre our repository to the structure outlined by Arthur on the 12.11.2020. 
+https://reasonabledeviations.com/2018/02/01/stock-price-database/#database-schema
+
+We chose to keep our structure with the folders intact for this milestone since it is too risky to restructure our whole github on the eve of the delivery deadline of milestone3. For the next milestone, we will restrucutre our repository to the structure outlined by Arthur on the 12.11.2020. 
