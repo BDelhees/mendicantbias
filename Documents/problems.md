@@ -1,13 +1,13 @@
-##Encountered Problems Outside of Milestones
+## Encountered Problems Outside of Milestones
 
-####1.
+#### 1.
 The virtualbox on Microsoft Surface kept crashing, which led me to switch computers. When the Virtualbox crahsed,
 I was no able to save the status quo (if I do, the virtualbox launches into the crashed mode).
 
-####2.
+#### 2.
 New computer had SVM disabled and changes in the BIOS (I have an MSCI motherboard and AMD CPU) had to be made to enable it.
 
-####3.
+#### 3.
 When running:
 
 ```sh
@@ -71,7 +71,7 @@ pip install -U pip
 
 which gave me no WARNING message.
 
-####4.
+#### 4.
 Updating ubuntu 20.04 via:
 
 ```sh
@@ -85,7 +85,7 @@ sudo apt-get upgrade
 
 led me to increase disk space since it stopped due to an error message that not enough disk space was available. However, I refrain from updating the virtualbox from now on since it increases the likelihood that the virtualbox crashes.
 
-####5.
+#### 5.
 When the virtualbox crashes again (for reasons unknown until now), I start back at 1. and rerun these commands to get the virtualbox up and running for the project. Also, all packages (TensorFlow, matplotlib, keras, etc.) needed for the project have to be reinstalled.
 
 
