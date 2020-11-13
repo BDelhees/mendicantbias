@@ -196,6 +196,7 @@ docker exec ...
 \dt
 ```
 
+We were not able to create the table since for some reason we were not able to reconnect to docker and we tried several approaches, as well as re-running the above code. The error messages varied and tried to find solutions online, but this led us down one rabbit-hole after another with no avail.
 
 
 
@@ -215,7 +216,7 @@ And indeed, it turns out that the several filesystems (all /dev/loop and /cow) a
 
 
 
-While trying to download the Docker image form the official Docker hub page, with:
+While trying to download the Docker image from the official Docker hub page, with:
 
 ```sh
 sudo snap install docker
@@ -229,17 +230,36 @@ I encountered the following message:
 
 "error: cannot communicate with server: timeout exceeded while waiting for response"
 
-After that, the virtualbox crashed.
+After that, the virtualbox crashed. I have not found a solution to this without setting up the Virtualbox from scratch. Even when setting up the Virtualbox from scratch and follwing the aboce commands, I get to the same point and disk space is still full, keeping me from further implementing the above steps.
 
 
+When we first tried to run docker, our access was usually denied. We tried to use the following four commands:
 
-Helpful websites for this task:
+```sh
+sudo groupadd docker
+```
+
+```sh
+sudo usermod -aG docker ${USER}
+```
+
+```sh
+su -s ${USER}
+```
+
+```sh
+docker run hello-world
+```
+
+
+***Helpful websites for this task:***
 
 https://docs.cloudera.com/HDPDocuments/DAS/DAS-1.4.4/installation/content/das_configure_postgres_ubuntu.html
 
 https://jfrog.com/knowledge-base/a-beginners-guide-to-understanding-and-building-docker-images/#:~:text=A%20Docker%20image%20is%20a,publicly%20with%20other%20Docker%20users
 
 https://www.pgadmin.org/download/pgadmin-4-python/
+
 
 #### 3.
 
@@ -290,3 +310,70 @@ This reveals:
 | Weighted_Price  |   398  | 109.94
 | date |  2015-01-16   | 2014-12-01
 | dtype |  object   | object
+
+
+To create a database with our ***bitcoin.csv*** file, we would follow the same steps as in Task 2. Since we do not have images as our data (see data structure abvoe), minimal changes would have to be made to save them PostgreSQL compliant in a databse. However, we got stuck on the same issue as mentioned at the end of Task 2 and could not proceed due to these reasons.
+
+We envision the following database structure (when we have sorted out the issues above and get this far):
+
+
+
+
+#### 4.
+
+The goal is to create a Multi-Docker Application. Essentially, we need to have a database running and thus tables based on the ***bitcoin.csv*** file and the predicitons from our Rnn-Model, which has been partitioned/modularized into several ***.py*** files. This means we have to dockerize our code as well as our data input.
+
+Create a docker-compose.yml file which:
+
+Starts a PostgreSQL Server Docker container (version 12.4). It should use a Docker volume to persist your data, even after your Docker container was stopped and deleted.
+
+1. We created a docker compose file, called ***docker-compose.yml*** with the following code, which we copied and modified as such:
+
+```sh
+version: "3.8"
+
+services:
+
+  postgres_service:
+   container_name: postgresql_container
+   restart: always
+   image: postgres:10.5
+   volumes:
+     - postgres-data:/var/lib/postgresql/data
+     - ./postgresql/init:/docker-entrypoint-initdb.d
+   ports:
+     - "5432:5432"
+   environment:
+     - POSTGRES_USER=admin
+     - POSTGRES_PASSWORD=password
+volumes:
+  postgres-data:
+    driver: local
+```
+
+2. First we have to install the correct docker version (12.4), we ran:
+
+```sh
+docker pull postgres:12.4
+```
+
+3. Now that we have installed the correct version, we need to start a container.
+
+
+
+
+
+
+***Encountered Problems:***
+
+Same problem as Task 2 and Task 3, unable to connect to Docker and thus Post
+
+
+
+***Helpful Websites for this task:***
+
+https://docs.docker.com/compose/compose-file/
+
+https://linuxhint.com/run_postgresql_docker_compose/
+
+We chose to keep our structure with the fodlers intact for this milestone since it is too risky to restructure our whole github on the eve of delivering the deadline of milestone3. For the next milestone, we will restrucutre our repository to the structure outlined by Arthur on the 12.11.2020. 
