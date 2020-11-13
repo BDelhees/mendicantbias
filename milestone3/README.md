@@ -168,7 +168,7 @@ In the prompt we use the command \conninfo to get all the information (without t
 
 "You are connected to database “postgres” as user “postgres” via socket in “/var/run/postgresql” at port “5432”"
 
-7. To access the "ms3_jokes" database via Python script called ***jokes_db.py***, we used the ***pyscopg2*** package we installed on step 4.
+7. To access the "ms3_jokes" database via Python script called ***jokes.py***, we used the ***pyscopg2*** package we installed on step 4.
 
 8. To connect the python file and the database, we need the information (Name of the database, User, Host, Password, Port) outlined in step 6 and its command.
 
