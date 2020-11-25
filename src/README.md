@@ -7,7 +7,7 @@
 
 Insert milestone 3 tasks here.
 
-
+#
 #### 1.
 
 *What is Experiment Management and why is it important?*
@@ -100,7 +100,7 @@ Disadvantages:
 - Does not account for unbalanced datasets (for example when 90% of observations are actually positive, thus accuracy is not representative of true performance of identifier)
 
 
-
+#
 #### 2.
 
 We created a public Weights & Biases project:
