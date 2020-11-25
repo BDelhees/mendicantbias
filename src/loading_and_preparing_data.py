@@ -5,6 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
+import wandb
 
 
 # Import the dataset and encode the date
@@ -26,3 +27,21 @@ def preparing_data():
     df_test = Real_Price[len(Real_Price) - prediction_days :]
 
     return df_train, df_test
+
+# Weights and Biases
+
+wandab.init(project="ds-tk")
+
+# Log metrics with wandb
+ 
+for _ in range(num_epochs):
+  train_model()
+  loss = calulate_loss()
+  wandb.log({"Loss": loss})
+
+# Save model to wandb
+
+np.save("weights", weights)
+wandb.save("weights.npy")
+
+
