@@ -158,7 +158,7 @@ This did not work either. I encountered the following Error message:
 
 
 
-#
+
 The tasks are as follows:
 
 0. Choose an appropriate metric for optimizing your ML Model. What is the reasoning behind
@@ -200,3 +200,6 @@ wandb login "super special secret code which we cannot share here"
 6. Try to play with your Neural Network, by changing parameters or even its
 architecture. Make sure that you log those changes automatically to W&B. Compare
 the runs on W&B, how do the metrics/loss change?
+\
+#
+#### 3.
