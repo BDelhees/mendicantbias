@@ -34,17 +34,19 @@ def preparing_data():
 # Weights and Biases
 
 
-run = wandb.init(project='wandb-dstk',
+run = wandb.init(project='ds-tk',
                 config ={
                 "epochs": 100,
                 "batch_size": 5,
                 "loss": "MSE"
                 "architecture": "RNN"
-                "dataset": "bitcoin.csv" 
+                "dataset": "bitcoin.csv"
+                "optimizer": "adam" 
                 })
 
 
 config = wandb.config
+
 # Log metrics with wandb
  
 # for _ in range(num_epochs):
