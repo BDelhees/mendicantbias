@@ -1,11 +1,12 @@
 import numpy as np
 import pandas as pd
+import wandb
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
-import wandb
+from wandb.keras import WandbCallback
 
 
 # Import the dataset and encode the date
@@ -28,20 +29,30 @@ def preparing_data():
 
     return df_train, df_test
 
+
+
 # Weights and Biases
 
-wandab.init(project="ds-tk")
+
+run = wandb.init(project='wandb-dstk',
+                config ={
+                "epochs": 100,
+                "batch_size": 5,
+                "loss": "MSE"
+                "architecture": "RNN"
+                "dataset": "bitcoin.csv" 
+                })
 
 # Log metrics with wandb
  
-for _ in range(num_epochs):
-  train_model()
-  loss = calulate_loss()
-  wandb.log({"Loss": loss})
+# for _ in range(num_epochs):
+# train_model()
+# loss = calulate_loss()
+# wandb.log({"Loss": loss})
 
 # Save model to wandb
 
-np.save("weights", weights)
-wandb.save("weights.npy")
+#np.save("weights", weights)
+#wandb.save("weights.npy")
 
 
