@@ -34,16 +34,15 @@ def preparing_data():
 # Weights and Biases
 
 
-run = wandb.init(project='ds-tk',
-                config ={
+wand.init(project='wandb-dstk',
+          group="experiment1"
+          config ={
                 "epochs": 100,
                 "batch_size": 5,
                 "loss": "MSE"
                 "architecture": "RNN"
                 "dataset": "bitcoin.csv"
-                "optimizer": "adam" 
                 })
-
 
 config = wandb.config
 
