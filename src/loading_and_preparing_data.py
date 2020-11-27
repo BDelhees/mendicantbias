@@ -46,16 +46,5 @@ wand.init(project='wandb-dstk',
 
 config = wandb.config
 
-# Log metrics with wandb
- 
-# for _ in range(num_epochs):
-# train_model()
-# loss = calulate_loss()
-# wandb.log({"Loss": loss})
-
-# Save model to wandb
-
-#np.save("weights", weights)
-#wandb.save("weights.npy")
 
 
