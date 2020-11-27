@@ -19,3 +19,17 @@ def fit_network(X_train, y_train):
     regressor.fit(X_train, y_train, batch_size=5, epochs=100)
 
     return regressor
+
+regressor.compile(optimizer=config.optimizer,
+              loss=config.loss
+              )
+
+history = model.fit(x=X_train,
+                    y=y_train,
+                    epochs=config.epoch,
+                    batch_size=config.batch_size,
+                    validation_data=(test_set),
+                    callbacks=[WandbCallback()])
+
+
+wandb.finish()
