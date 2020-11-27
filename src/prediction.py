@@ -10,3 +10,12 @@ def predict(df_test, sc, regressor):
     predicted_BTC_price = sc.inverse_transform(predicted_BTC_price)
 
     return predicted_BTC_price
+
+
+wandb.init(project="wandb-dstk", group=experiment1)
+
+
+wandb.log({"predicted BTC Prices": predicted_BTC_prices})
+
+print(predicted_BTC_prices)
+print(test_set)
