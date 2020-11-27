@@ -43,6 +43,8 @@ run = wandb.init(project='wandb-dstk',
                 "dataset": "bitcoin.csv" 
                 })
 
+
+config = wandb.config
 # Log metrics with wandb
  
 # for _ in range(num_epochs):
