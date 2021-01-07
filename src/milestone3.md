@@ -3,10 +3,21 @@
 ### Milestone 3
 
 #### 1.
+*Install docker-compose. And got through this:*
+https://docs.docker.com/compose/gettingstarted/
+- *Which services are being used for the application (described in the link
+above)? How do they relate to the host names in terms of computer networks?*
+- *What ports are being used (within the application and in the docker-compose
+file)?*
+- *How does the host machine (e.g. your computer) communicate with the
+application inside the Docker container. Which ports are exposed from the
+application to the host machine?*
+- *What is localhost, why is it useful in the domain of web applications?*
+
 
 We followed the given steps from the docker compose website. First, we had to install the Docker Engine and Docker compose. We did the following steps:
 
-1. Setup
+**1. Setup**
  - Create directory for the project
  - Create a file called app.py in the project directory:
  ```sh
@@ -42,7 +53,7 @@ flask
 redis
 ``` 
 
-2. Create Dockerfile
+**2. Create Dockerfile**
   - In the project directory, create a file named Dockerfile:
 ```sh  
 FROM python: 3.7-alpine 
@@ -65,8 +76,8 @@ COPY . .
 
 CMD ["flask", "run"]
 ``` 
-3. Define services in a Compose file
-  - Create a file called docker-compose.yml in the project directory:
+**3. Define services in a Compose file**
+  - Create a file called **docker-compose.yml** in the project directory:
 ```sh
 version: "3.8"
 services:
@@ -78,26 +89,26 @@ services:
     image: "redis:alpine"
 ``` 
 
-4. Build and run your app with compose
-  - From your project directory, start up your application by running docker-compose up.
+**4. Build and run your app with compose**
+  - From your project directory, start up your application by running `docker-compose up`.
   - Enter http://localhost:5000/ in the browser to see if the application is up and running.
 
 
 ***Encountered Problems:***
 
-We did not encounter any problems until the last step. When we ran docker-compose up, we got the following error message:
+We did not encounter any problems until the last step. When we ran `docker-compose up`, we got the following error message:
 
-Version in the "./docker-compose.yml" is unsupported.
+`version in the "./docker-compose.yml" is unsupported`
 
 We looked for solutions on Github. We checked whether the problem was caused by the version of the package. This was not the case. We further tried changing the version of the Dockerfile and then run the .yml file, but to no avail. 
 
 #### 2.
 
-1. What is PostgreSQL?
+**1. What is PostgreSQL?**
 
-PostgreSQL is an open source object-relational database management system (RDBMS) that uses and extends the SQL language combined with other features (store,scal). It runs on all major operating systems. It is also highly extensible. Different programming languages can be used, for example to build custom functions. It also tries to conform with the SQL standard, which gives it a wide basis for usage. The development community adheres closely to the SQL standard. However, there are a number of PostgreSQL specific functionalities.  These are pointed out in the documentation. PostgreSQL has an extensive range of third-party extensions (e.g. PostGIS, management of geodata). Basically, PostgreSQL is SQL with additional functionalities that SQL does not have.
+PostgreSQL is an open source object-relational database management system (RDBMS), that uses and extends the SQL language combined with other features (store,scal). It runs on all major operating systems. It is also highly extensible. Different programming languages can be used, for example to build custom functions. It also tries to conform with the SQL standard, which gives it a wide basis for usage. The development community adheres closely to the SQL standard. However, there are a number of PostgreSQL specific functionalities.  These are pointed out in the documentation. PostgreSQL has an extensive range of third-party extensions (e.g. PostGIS, management of geodata). Basically, PostgreSQL is SQL with additional functionalities that SQL does not have.
 
-2. Run a PostgreSQL server and find an appropriate Python package that allows communication with the database server
+**2. Run a PostgreSQL server and find an appropriate Python package that allows communication with the database server**
 
 PostgreSQL is usually available for all Unbuntu versions by default. But we had to install it, because we needed a specific version (12.4). For that we followed the steps below:
 
@@ -164,11 +175,11 @@ psycopg2.connect()
 docker exec -tiu postgres some postgres psql
 ```
 
-In the prompt we use the command \conninfo to get all the information (without the password). The Output was:
+In the prompt we use the command `\conninfo` to get all the information (without the password). The Output was:
 
-"You are connected to database “postgres” as user “postgres” via socket in “/var/run/postgresql” at port “5432”"
+"You are connected to database “postgres” as user “postgres” via socket in “/var/run/postgresql” at port “5432”
 
-7. To access the "ms3_jokes" database via Python script called ***jokes.py***, we used the ***pyscopg2*** package we installed on step 4.
+7. To access the **ms3_jokes** database via Python script called ***jokes. py***, we used the ***pyscopg2*** package we installed on step 4.
 
 8. To connect the python file and the database, we need the information (Name of the database, User, Host, Password, Port) outlined in step 6 and its command.
 
@@ -202,8 +213,7 @@ We were not able to create the table since for some reason we were not able to r
 
 ***Encountered Problems:***
 
-When I tried to install the Docker engine on my Virtualbox.
-When trying to install docker engine via https://docs.docker.com/engine/install/ubuntu/, while trying to remove old docker affiliated files, I got the following error message:
+When I tried to install the Docker engine on my Virtualbox via https://docs.docker.com/engine/install/ubuntu/, and while trying to remove old docker affiliated files, I got the following error message:
 
 "Reading packages lists... Error! Write error- write (28: No space left on device)"
 
@@ -230,7 +240,7 @@ I encountered the following message:
 
 "error: cannot communicate with server: timeout exceeded while waiting for response"
 
-After that, the virtualbox crashed. I have not found a solution to this without setting up the Virtualbox from scratch. Even when setting up the Virtualbox from scratch and follwing the aboce commands, I get to the same point and disk space is still full, keeping me from further implementing the above steps.
+After that, the virtualbox crashed. I have not found a solution to this without setting up the Virtualbox from scratch. Even when setting up the Virtualbox from scratch and following the above commands, I get to the same point and disk space is still full, keeping me from further implementing the above steps.
 
 
 When we first tried to run docker, our access was usually denied. We tried to use the following four commands:
@@ -263,13 +273,13 @@ https://www.pgadmin.org/download/pgadmin-4-python/
 
 #### 3.
 
-To find what datatypes of each object in bitcoin.csv we run (pandas is required):
+To find what datatypes of each object in bitcoin.csv is, we run (pandas is required):
 
 ```sh
 python3 df.dtypes
 ```
 
-Output is as follows:
+The output is as follows:
 
 | Variable | Type in Python| Type in PostgresSQL (precision, scale)|
 | --- | --- | --- |
@@ -284,7 +294,9 @@ Output is as follows:
 | date |  datetime64   | ISO 8601
 | dtype |  object   |
 
-PostgresSQL does not support any 64-byte integers or floats (int64, float64) according to https://www.postgresql.org/docs/12/datatype-numeric.html#DATATYPE-INT. This leaves us with the following option to structure our database. Change the float64 and int64 to NUMERIC. However, this will slow down calculations comapred to PostgresSQL int-types. Nevertheless, the calculations are more precise and recommended for monetary amounts. This trade-off between precision and time needs to be observed in real-time. The int64 could technically be converted to int8 in python (with the numpy package) but this cuts down the possible range of values from -128 to 127 (see https://numpy.org/doc/stable/user/basics.types.html). This would be possible for the "Volume_(BTC)" variable but not for the others. We therefore stick to NUMERIC for now. Also, we want to keep the option of a larger precision (total amount of numbers for a given observation) and scale (numbers after the decimal points). This is mostly for the float-variables which would give us closer predictions of our Rnn-Model. The timestamp variable is an int with a precision of 10, so int8 is not an option without major transformations. We refrain from using the direct money type since there could arise problems when classifying BTC as a currency. To change the datatype of the "Date" variable from object to datetime, we implemented the following line to "loading_and_preparing_data.py":
+PostgresSQL does not support any 64-byte integers or floats (int64, float64) according to https://www.postgresql.org/docs/12/datatype-numeric.html#DATATYPE-INT. This leaves us with the following option to structure our database: 
+
+Change the float64 and int64 to NUMERIC. However, this will slow down calculations comapred to PostgresSQL int-types. Nevertheless, the calculations are more precise and recommended for monetary amounts. This trade-off between precision and time needs to be observed in real-time. The int64 could technically be converted to int8 in python (with the numpy package) but this cuts down the possible range of values from -128 to 127 (see https://numpy.org/doc/stable/user/basics.types.html). This would be possible for the "Volume_(BTC)" variable but not for the others. We therefore stick to NUMERIC for now. Also, we want to keep the option of a larger precision (total amount of numbers for a given observation) and scale (numbers after the decimal points). This is mostly for the float-variables which would give us closer predictions of our Rnn-Model. The timestamp variable is an int with a precision of 10, so int8 is not an option without major transformations. We refrain from using the direct money type since there could arise problems when classifying BTC as a currency. To change the datatype of the "Date" variable from object to datetime, we implemented the following line to **loading_and_preparing_data.py**:
 
 ```sh
 df['date'] = df['date'].astype('datetime64[ns]')
@@ -312,9 +324,8 @@ This reveals:
 | dtype |  object   | object
 
 
-To create a database with our ***bitcoin.csv*** file, we would follow the same steps as in Task 2. Since we do not have images as our data (see data structure abvoe), minimal changes would have to be made to save them PostgreSQL compliant in a databse. However, we got stuck on the same issue as mentioned at the end of Task 2 and could not proceed due to these reasons.
+To create a database with our ***bitcoin.csv*** file, we would follow the same steps as in Task 2. Since we do not have images as our data (see data structure above), minimal changes would have to be made to save them PostgreSQL compliant in a databse. However, we got stuck on the same issue as mentioned at the end of Task 2 and could not proceed due to these reasons.
 
-We envision the following database structure (when we have sorted out the issues above and get this far):
 
 
 
@@ -325,9 +336,9 @@ The goal is to create a Multi-Docker Application. Essentially, we need to have a
 
 Create a docker-compose.yml file which:
 
-1. Starts a PostgreSQL Server Docker container (version 12.4). It should use a Docker volume to persist your data, even after your Docker container was stopped and deleted.
+1. *Start a PostgreSQL Server Docker container (version 12.4). It should use a Docker volume to persist your data, even after your Docker container was stopped and deleted.*
 
-We created a docker compose file, called ***docker-compose.yml***, which keeps the data even after the docker container is deleted or stopped. To do this, we copied and modified a code as such:
+We created a docker compose file, called **docker-compose.yml**, which keeps the data even after the docker container is deleted or stopped. To do this, we copied and modified a code as such:
 
 ```sh
 version: "3.8"
@@ -354,41 +365,43 @@ volumes:
 We are unsure if that is the correct approach or if we are miles off.
 
 
-2. Executes a Python Script in another (!) Docker container, which connects to the your database (you'll have to write a Dockerfile for this). This script should do the following taks:
+2. *Execute a Python Script in another (!) Docker container, which connects to the your database (you'll have to write a Dockerfile for this). This script should do the following taks:*
 
-2.1. Initialize database from previous task and add two tables "input_data" and "predictions":
+- *Initialize database from previous task and add two tables "input_data" and "predictions":*
 
-We failed to start the container due to the same raesons outlined in the end of Task 2&3. Further, we were not able to properly debug our Rnn-model code. The code does not execute or deliver any proper predictions. We have spent a considerable amount of time troubleshooting (also in spyder) this but we were not able to solve it. We will try again in the coming weeks, since without predictions, our future app is useless.
+We failed to start the container due to the same raesons outlined in the end of Task 2&3. Further, we were not able to properly debug our Rnn-model code. The code does not execute or deliver any proper predictions. We have spent a considerable amount of time troubleshooting (also in spyder) this, but we were not able to solve it. We will try again in the coming weeks, since without predictions, our future app is useless.
 
-2.2 Load your trained Neural Network (.h5) file:
+- *Load your trained Neural Network (.h5) file:*
 
-We were not able to create a ***.h5*** file for milestone2. Sadly, we were not able to produce one for this milestone either.
+We were not able to create a ***.h5*** file for milestone 2. Sadly, we were not able to produce one for this milestone either.
 
-2.3 Load a sample from the data set:
+- *Load a sample from the data set:*
 
-See answer for 2.1&2
+See answer above
 
-2.4 Save this single sample to the database:
+- *Save this single sample to the database:*
 
-See answer for 2.1&2
+See answer above
 
-2.5 Load the sample again from the database
+- *Load the sample again from the database*
 
-See answer for 2.1&2
+See answer above
 
-2.6 Call your predict function:
+- *Call your predict function:*
 
-See answer for 2.1&2
+See answer above
 
-2.7 Save the prediction result to the database
+- *Save the prediction result to the database*
 
-See answer for 2.1&2
+See answer above
 
 
 
-3. Explain to us how you chose to structure your database and what tables do you have, what attributes do they have?
+3. *Explain to us how you chose to structure your database and what tables do you have, what attributes do they have?*
 
-Since we are working with PostgreSQL, we would adpot a SQL compliant relational database. This works well with our structured Bitcoin pricing data. However, since our dataset only consists of one table with roughly 10k rows and 7 variables, it would not make sense to partition this any further. We would link the datetime (created out of timestamp) variable as the id, any other variables would not make much sense. With the date as id, we could select specific days and split the data into training and test set accordingly. The database would not have any connections to other tables since we do not have any further data. The only possible case would be prediction data which coul potentially be saved in another table. In this case a seperate table would be created and linked to the existing datatable with the id which would lead to problems (we would have to choose how many datapoints/dates the Rnn-model would use to make price movement predictions, but then we could not just append it with a new id since they would be the same as in the training set which would convolute and interefere with the bitcoin/training set, therefore a seperate table would not make much sense unless for comparison purposes of training/test sets). The database would look as follows:
+Since we are working with PostgreSQL, we would adopt a SQL compliant relational database. This works well with our structured Bitcoin pricing data. However, since our dataset only consists of one table with roughly 10k rows and 7 variables, it would not make sense to partition this any further. We would link the datetime (created out of timestamp) variable as the id, any other variables would not make much sense. With the date as id, we could select specific days and split the data into training and test set accordingly. The database would not have any connections to other tables since we do not have any further data. The only possible case would be that the prediction data could potentially be saved in another table. In this case a separate table would be created and linked to the existing data table with the id, which would lead to problems (we would have to choose how many datapoints/dates the Rnn-model would use to make price movement predictions, but then we could not just append it with a new id since they would be the same as in the training set, which would convolute and interfere with the bitcoin/training set. Therefore a separate table would not make much sense unless for comparison purposes of training/test sets). 
+
+The database would look as follows:
 
 | Database |  |
 | --- | --- |
@@ -408,7 +421,7 @@ Since we are working with PostgreSQL, we would adpot a SQL compliant relational 
 
 ***Encountered Problems:***
 
-Same problem as Task 2 and Task 3, unable to connect to Docker. Overall, we were not able to do a lot in this task since we failed on some major points in the previous tasks.
+Same problems as seen in Task 2 and Task 3, basically unable to connect to Docker. Overall, we were not able to do a lot in this task since we failed on some major points in the previous tasks.
 
 
 
@@ -420,4 +433,4 @@ https://linuxhint.com/run_postgresql_docker_compose/
 
 https://reasonabledeviations.com/2018/02/01/stock-price-database/#database-schema
 
-We chose to keep our structure with the folders intact for this milestone since it is too risky to restructure our whole github on the eve of the delivery deadline of milestone3. For the next milestone, we will restrucutre our repository to the structure outlined by Arthur on the 12.11.2020. 
+We chose to keep our structure with the folders intact for this milestone since it is too risky to restructure our whole github on the eve of the delivery deadline of milestone 3. For the next milestone, we will restructure our repository to the structure outlined by Arthur on the 12.11.2020. 
