@@ -1,7 +1,5 @@
 # Data Science and Toolkits
 
-# Data Science and Toolkits
-
 ### Milestone 4
 
 Repository of Bud and Thanu
