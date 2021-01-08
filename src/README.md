@@ -1,5 +1,7 @@
 # Data Science and Toolkits
 
+# Data Science and Toolkits
+
 ### Milestone 4
 
 Repository of Bud and Thanu
@@ -25,7 +27,7 @@ to the code/database/hyperparameters etc.
 \
 *What is a Metric in ML?*
 
-A metric is a way to evaluate the performance of an algorithm. For example, Accuracy as a popular metric
+A metric is a way to evaluate the performance of an algorithm. For example, Accuracy is a popular metric
 for machine learning algorithms. Accuracy (opposite of error rate) measures how often a certain algorithm predicts
 data points correctly. It is the ratio of correctly predicted data points to all data points. More in-depth:
 
@@ -54,12 +56,8 @@ https://datascience-george.medium.com/the-precision-recall-trade-off-aa295faba14
 \
  *What is AUROC Metric?*
 
-To explain AUROC (Area Under Receiver Operating Characteristics Curve), we first have to define the ROC. ROC (Receiver Operating Characteristics) curves are used to see how well a certain classifier can separate positive and negative examples and to identify the best threshold for separating them. It visualizes the tradeoff between Sensitivity (aka TPR, True Positive Rate) and FPR (False Positive rate, 1-Specificity) in a binary classifier (as can be seen in Figure 1).
+To explain AUROC (Area Under Receiver Operating Characteristics Curve), we first have to define the ROC. ROC (Receiver Operating Characteristics) curves are used to see how well a certain classifier can separate positive and negative examples and to identify the best threshold for separating them. It visualizes the tradeoff between Sensitivity (aka TPR, True Positive Rate) and FPR (False Positive rate, 1-Specificity) in a binary classifier.
 
-
-![](assets/markdown-img-paste-20201121095421934.png)
-
-Figure 1: ROC
 
 If the ROC curve is on the diagonal line, the classifier performs no better than random guessing. The perfect classifier would hug the y-axis to the left and the top x-axis. If the ROC curve is below the diagonal, it is a bad classifier. If it is above, it is between a ok-ish and a good classifier (up to debate depending on the dataset).
 
@@ -69,8 +67,7 @@ Advantages of using ROC and AUROC:
 
 - ROC curves can be used to evaluate the tradeoff between Sensitivity and Specificity for all possible thresholds
 - Several cutoff values can be compared
-- AUROC provides a single measure to compare different models
-
+- AUROC provides a single measure to compare different models\
 
 \
 *What is a Confusion Matrix?*
@@ -82,7 +79,8 @@ Confusion Matrix:
 | **Predicted** |  **1**   | True Positive (TP) | False Positive (FP)
 | **Predicted** |  **0**   | False Negative (FN) | True Negative (TN)
 
-The confusion matrix shows if the classifier correctly identified the observation or was it confused with other labels?
+
+The confusion matrix shows if the classifier correctly identified the observation or was it confused with other labels.
 
 - TP: Cases which are predicted to be positive and are actually positive.
 - TN: Cases which are predicted to be negative and are actually negative.
@@ -113,7 +111,7 @@ https://wandb.ai/bdelhees/ds-tk
 
 Due to technical difficulties, we set up our VirtualBox from scratch with the help from Sandro.
 The problem before was that the VirtualBox kept booting over the ISO-file, which lead to minimal
-disk space available and thus most packages were not able to be installed. After setting up the new VirtualBox, we installed the following packages/modules which are necessary for to predict bitcoin prices with our code:
+disk space available and thus most packages were not able to be installed. After setting up the new VirtualBox, we installed the following packages/modules which are necessary to predict bitcoin prices with our code:
 
 - **numpy**
 - **keras**
@@ -121,7 +119,7 @@ disk space available and thus most packages were not able to be installed. After
 - **sklearn**
 - **TensorFlow**
 
-When trying to install the last module, I ran into the following error message:
+While trying to install the last module, I ran into the following error message:
 
 "Could not install packages due to an EnvironmentError: [Errno 28] No space left on device"
 
@@ -138,7 +136,7 @@ du -sh /usr/lib/python3/dist-packages
 ```
 It showed that 62Mb were used, which accounts for the packages **numpy**, **matplotlib** and **sklearn**. **Keras** was installed but during the (unsuccessful) installation of **TensorFlow**, **keras** has been deleted (maybe because **keras** is included in **TensorFlow**).  
 
-I tried to delete the cache and hope that it solves somehow the problem:
+I tried to delete the cache and hope that it somehow solves the problem:
 
 ```sh
 sudo du -sh /usr/lib/python3/dist-packages
@@ -181,12 +179,12 @@ First step:
 pip3 install wandb
 ```
 
-After that, we tried to login via to see if it work without a dockerfile:
+After that, we tried to login via to see if it works without a dockerfile:
 
 ```sh
 wandb login "super special secret code which we cannot share here"
 ```
-This worked. To include weights and biases in our script, we added the following lines to our loading_and_preparing_data.py script:
+This worked. To include weights and biases in our script, we added the following lines to our **loading_and_preparing_data.py** script:
 
 ```sh
 import wandb
@@ -240,7 +238,7 @@ exec "$@"
 \
 *2. Train a Model*
 
-Now we have to extend our code and thus model so that weights and biases can access it and save it. We inserted this code to the rnn_layer_fitting.py :
+Now we have to extend our code and thus model, so that weights and biases can access it and save it. We inserted this code to the **rnn_layer_fitting.py** :
 
 ```sh
 regressor.compile(optimizer=config.optimizer,
@@ -264,7 +262,7 @@ To save the model we insert,
 wandb.finish()
 ```
 
-to the end of the rnn_layer_fitting.py file.
+to the end of the **rnn_layer_fitting.py** file.
 
 
 \
@@ -306,7 +304,7 @@ https://colab.research.google.com/drive/1aEv8Haa3ppfClcCiC2TB8WLHB4jnY_Ds#scroll
 
 ### 3.
 \
-To create a Jupyter notebook, we wexectured the following commands:
+To create a Jupyter notebook, we executed the following commands:
 
 ```sh
 # first, always upgrade pip!
@@ -328,4 +326,4 @@ After that, we used the following command:
 jupyter notebook –allow root
 ```
 \
-Which gives you the information about the localhost , where it is running and so on. We need to open the browser, than we can see the folder.
+Which gives you the information about the localhost , where it is running and so on. We need to open the browser, then we can see the folder.
