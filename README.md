@@ -28,4 +28,5 @@ We were given a data set and code, which act as our base to apply our exercise s
 URL: https://github.com/Abhay64/RNN-for-BitCoin-price-prediction
 
 Type of Neural Network: Rnn (Recurrent neural network)
+
 Data: Bitcoin prices
